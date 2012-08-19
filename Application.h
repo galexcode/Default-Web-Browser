@@ -10,8 +10,8 @@ class Application : public QApplication
     Q_OBJECT
 
 private:
-    MainWindow* mainWindow_;
-    QUrl url_;
+    MainWindow* mMainWindow;
+    QUrl mUrl;
 
 public:
     explicit Application(int& argc, char** argv);
