@@ -8,9 +8,9 @@
 
 Application::Application(int& argc, char** argv) : QApplication(argc, argv)
 {
-    mainWindow_ = 0;
-    mainWindow_ = new MainWindow;
-    mainWindow_->show();
+    mMainWindow = 0;
+    mMainWindow = new MainWindow;
+    mMainWindow->show();
 
 
     QStringList arguments = qApp->arguments();
@@ -21,12 +21,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
                                  arguments.value(1, QString()),
                                  QMessageBox::Ok,
                                  QMessageBox::Ok);
-        mainWindow_->openUrl(QUrl(arguments.value(1, QString())));
+        mMainWindow->openUrl(QUrl(arguments.value(1, QString())));
     }
 
-    if (url_.isValid())
+    if (mUrl.isValid())
     {
-        mainWindow_->openUrl(url_);
+        mMainWindow->openUrl(mUrl);
     }
 }
 
@@ -38,13 +38,13 @@ bool Application::event(QEvent* event)
     {
         QFileOpenEvent* fileOpenEvent = static_cast<QFileOpenEvent*>(event);
 
-        if (mainWindow_)
+        if (mMainWindow)
         {
-            mainWindow_->openUrl(fileOpenEvent->url());
+            mMainWindow->openUrl(fileOpenEvent->url());
         }
         else
         {
-            url_ = fileOpenEvent->url();
+            mUrl = fileOpenEvent->url();
         }
 
         eaten = true;
